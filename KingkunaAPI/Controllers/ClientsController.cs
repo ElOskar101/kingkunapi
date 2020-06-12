@@ -27,62 +27,90 @@ namespace KingkunaAPI.Controllers
         // GET: api/Clients/5
         [HttpGet]
         [Authorize]
-        public IHttpActionResult GetClient(int id)
-        {
-            Client client = db.Client.Find(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
+        public IHttpActionResult GetClient(int id){
+            //Client c = db.Client.Where(s => s.Status == id);
 
-            return Ok(client);
+            List<Client> c = new List<Client>();
+
+            var query  = db.Client
+                .Where(s => s.Status == id)
+                .Select(s => s);
+
+            if (query == null)
+                return NotFound();
+
+            foreach (Client client in query)
+                c.Add(client);           
+
+            List<Client2> c2 = new List<Client2>();
+            Console.WriteLine("ñññññññññññññññññññññññ " + c[0].Name);
+            
+            for (int i = 0; i < c.Count; i++) {
+
+                //c2[i].ClientID = c[i].ClientID;
+                c2[i].Name = c[i].Name;
+                c2[i].Phone = c[i].Phone;
+                c2[i].Status = c[i].Status;
+                c2[i].DemoDays = c[i].DemoDays;
+                c2[i].HireDate = ConvertDate(c[i].HireDate);
+                c2[i].CancelDate = ConvertDate(c[i].CancelDate);
+                c2[i].CreateAt = ConvertDate(c[i].CreateAt);
+            }
+                       
+
+
+            return Ok(c.Count);
         }
 
-        // PUT: api/Clients/5
+        // PUT: api/Clients/5 Change status. status = 1 (client); status = 2 (old user)
+        // if status = 1, then we need amount; the calcel date convert into hire date and the original cancel
+        // date, will be cancel date + one month
         [Authorize]
         [HttpPut]
-        public IHttpActionResult PutClient(int id, Client client)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        public IHttpActionResult PutClient(int id, Client client){
 
-            if (id != client.ClientID)
-            {
-                return BadRequest();
-            }
+            //if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            db.Entry(client).State = EntityState.Modified;
+           // if (id != client.ClientID) return BadRequest();
 
-            try
-            {
+            Client auth = db.Client.Where(s => s.ClientID == id).FirstOrDefault();
+
+            if (client.Status == 1) {
+                auth.HireDate = client.CancelDate;
+                auth.CancelDate = auth.HireDate.AddMonths(1);
+                auth.Amount = client.Amount;
+                auth.Status = client.Status;
+
+            } else if (client.Status == 2)
+                auth.Status = client.Status;
+            
+
+            db.Entry(auth).State = EntityState.Modified;
+
+            try{
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
-            {
+
+            catch (DbUpdateConcurrencyException){
                 if (!ClientExists(id))
-                {
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                else throw;
+                
             }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Clients
+        // POST: api/Clients Is this resourse we need to save new client with only three parameters
         [Authorize]
         [HttpPost]
-        public IHttpActionResult PostClient(Client client)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        public IHttpActionResult PostClient(Client client){
+
+            client.HireDate = DateTime.Now;
+            client.CancelDate = DateTime.UtcNow.AddDays(client.DemoDays);
+            client.CreateAt = DateTime.Now;
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
             db.Client.Add(client);
             db.SaveChanges();
@@ -107,18 +135,53 @@ namespace KingkunaAPI.Controllers
             return Ok(client);
         }
 
-        protected override void Dispose(bool disposing)
-        {
+        protected override void Dispose(bool disposing){
             if (disposing)
-            {
                 db.Dispose();
-            }
+            
             base.Dispose(disposing);
         }
 
-        private bool ClientExists(int id)
-        {
-            return db.Client.Count(e => e.ClientID == id) > 0;
+        private bool ClientExists(int id) {return db.Client.Count(e => e.ClientID == id) > 0;}
+
+        private String ConvertDate(DateTime date) { // Return date in real format
+            String month;
+
+            month = ConverToStringMonth(date.Month); 
+
+            return date.Day+" de "+month+" de "+date.Year;
+        }
+
+        private String ConverToStringMonth(int month) { // Switch between all months of the years
+
+            switch (month) {
+                case 1:
+                    return ("Enero");
+                case 2:
+                    return ("Febrero");
+                case 3:
+                    return ("Marzo");
+                case 4:
+                    return ("Abri");
+                case 5:
+                    return ("Mayo");
+                case 6:
+                    return ("Junio");
+                case 7:
+                    return ("Julio");
+                case 8:
+                    return ("Agosto");
+                case 9:
+                    return ("Septiembre");
+                case 10:
+                    return ("Octubre");
+                case 11:
+                    return ("Noviembre");
+                case 12:
+                    return ("Diciembre");
+                default:
+                    return "false";
+            }
         }
     }
 }
