@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace KingkunaAPI.Models {
-    public class Client2 {
+    public partial class Client2 {
         public int ClientID { get; set; }
         public string Name { get; set; }
         public String CreateAt { get; set; }

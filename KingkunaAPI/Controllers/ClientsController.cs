@@ -10,8 +10,9 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using KingkunaAPI.Models;
 
-namespace KingkunaAPI.Controllers
-{
+namespace KingkunaAPI.Controllers {
+
+    [AllowAnonymous]
     public class ClientsController : ApiController
     {
         private Model db = new Model();
@@ -41,25 +42,28 @@ namespace KingkunaAPI.Controllers
 
             foreach (Client client in query)
                 c.Add(client);           
-
-            List<Client2> c2 = new List<Client2>();
-            Console.WriteLine("ñññññññññññññññññññññññ " + c[0].Name);
+          
+           List<Client2> arrayClient2 = new List<Client2>();
             
             for (int i = 0; i < c.Count; i++) {
 
-                //c2[i].ClientID = c[i].ClientID;
-                c2[i].Name = c[i].Name;
-                c2[i].Phone = c[i].Phone;
-                c2[i].Status = c[i].Status;
-                c2[i].DemoDays = c[i].DemoDays;
-                c2[i].HireDate = ConvertDate(c[i].HireDate);
-                c2[i].CancelDate = ConvertDate(c[i].CancelDate);
-                c2[i].CreateAt = ConvertDate(c[i].CreateAt);
+                Client2 c2 = new Client2();
+
+                c2.ClientID = c[i].ClientID;
+                c2.Name = c[i].Name;
+                c2.Phone = c[i].Phone;
+                c2.Status = c[i].Status;
+                c2.DemoDays = c[i].DemoDays;
+                c2.HireDate = ConvertDate(c[i].HireDate);
+                c2.CancelDate = ConvertDate(c[i].CancelDate);
+                c2.CreateAt = ConvertDate(c[i].CreateAt);
+
+                arrayClient2.Add(c2);
             }
                        
 
 
-            return Ok(c.Count);
+            return Ok(arrayClient2);
         }
 
         // PUT: api/Clients/5 Change status. status = 1 (client); status = 2 (old user)
