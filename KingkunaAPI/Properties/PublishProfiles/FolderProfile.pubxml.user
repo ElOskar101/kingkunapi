@@ -115,10 +115,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>02/01/2018 12:21:06</publishTime>
     </File>
     <File Include="bin/KingkunaAPI.dll">
-      <publishTime>06/16/2020 00:51:31</publishTime>
+      <publishTime>06/18/2020 14:43:52</publishTime>
     </File>
     <File Include="bin/KingkunaAPI.pdb">
-      <publishTime>06/16/2020 00:51:31</publishTime>
+      <publishTime>06/18/2020 14:43:52</publishTime>
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>05/24/2018 13:38:22</publishTime>
@@ -358,7 +358,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/04/2020 11:16:45</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>06/04/2020 11:15:27</publishTime>
+      <publishTime>04/06/2020 11:15:27</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>06/04/2020 11:16:45</publishTime>
@@ -403,7 +403,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>06/04/2020 11:15:27</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/04/2020 21:22:36</publishTime>
+      <publishTime>06/16/2020 14:24:35</publishTime>
     </File>
   </ItemGroup>
 </Project>

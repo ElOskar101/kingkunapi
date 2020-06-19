@@ -40,7 +40,7 @@ namespace KingkunaAPI.Controllers{
                                            && s.Pwd == user.Pwd).FirstOrDefault();
 
             if (auth != null) {
-                var token = TokenGeneratorController.GenerateTokenJwt(user.Username);
+                var token = "7";
                 user.UserID = auth.UserID;
                 user.Name = auth.Name;
                 user.Pwd = auth.Pwd;

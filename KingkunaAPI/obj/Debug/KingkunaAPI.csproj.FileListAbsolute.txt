@@ -102,5 +102,3 @@ C:\Users\Oscar\Documents\Visual Studio 2017\Projects\KingkunaAPI\KingkunaAPI\obj
 C:\Users\Oscar\Documents\Visual Studio 2017\Projects\KingkunaAPI\KingkunaAPI\obj\Debug\KingkunaAPI.csproj.CopyComplete
 C:\Users\Oscar\Documents\Visual Studio 2017\Projects\KingkunaAPI\KingkunaAPI\obj\Debug\KingkunaAPI.dll
 C:\Users\Oscar\Documents\Visual Studio 2017\Projects\KingkunaAPI\KingkunaAPI\obj\Debug\KingkunaAPI.pdb
-C:\Users\Oscar\Documents\Visual Studio 2017\Projects\KingkunaAPI\KingkunaAPI\obj\Debug\KingkunaAPI.Migrations.InitialIgnoreChanges.resources
-C:\Users\Oscar\Documents\Visual Studio 2017\Projects\KingkunaAPI\KingkunaAPI\obj\Debug\KingkunaAPI.csproj.GenerateResource.cache

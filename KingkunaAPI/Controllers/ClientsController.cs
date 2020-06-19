@@ -57,6 +57,7 @@ namespace KingkunaAPI.Controllers {
                 c2.HireDate = ConvertDate(c[i].HireDate);
                 c2.CancelDate = ConvertDate(c[i].CancelDate);
                 c2.CreateAt = ConvertDate(c[i].CreateAt);
+                c2.Amount = c[i].Amount;
 
                 arrayClient2.Add(c2);
             }
@@ -73,15 +74,11 @@ namespace KingkunaAPI.Controllers {
         [HttpPut]
         public IHttpActionResult PutClient(int id, Client client){
 
-            //if (!ModelState.IsValid) return BadRequest(ModelState);
-
-           // if (id != client.ClientID) return BadRequest();
-
-            Client auth = db.Client.Where(s => s.ClientID == id).FirstOrDefault();
+            Client auth = db.Client.Where(s => s.ClientID == client.ClientID).FirstOrDefault();
 
             if (client.Status == 1) {
-                auth.HireDate = client.CancelDate;
-                auth.CancelDate = auth.HireDate.AddMonths(1);
+                auth.HireDate = DateTime.Now;
+                auth.CancelDate = auth.HireDate.AddMonths(id);
                 auth.Amount = client.Amount;
                 auth.Status = client.Status;
 

@@ -6,7 +6,7 @@ namespace KingkunaAPI.Models {
 
     public partial class Model : DbContext {
         public Model()
-            : base("name=ModelWC") {
+            : base("name=ModelCFG") {
         }
 
         public virtual DbSet<Client> Client { get; set; }
@@ -15,7 +15,7 @@ namespace KingkunaAPI.Models {
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Entity<Client>()
                 .Property(e => e.Name)
-                .IsFixedLength();
+                .IsUnicode(false);
 
             modelBuilder.Entity<Client>()
                 .Property(e => e.Phone)
